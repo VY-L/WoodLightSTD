@@ -188,10 +188,10 @@ shouldn't matter that much, since it needs `i=2` and the first try to not be air
 ## Computational Resouce Optimization
 Since we only care about lava, the first thing we can do is move all of this functionality from random tick to scheduled tick, which is already a massive improvement since we are only ticking lava now. 
 
-Now, you may think that there is still a lot of lava that generates in the world, so thats still a problem. However, we can create a way to only tick "relavent lava". Specifically, lava that has any obsidian around. You place obsidian in the world, it triggers a boolean flag and updates the lava. When the lava is updates, and the flag is true, then it triggers counters and starts continuously scheduling a tile tick in the next tick, and repeats such a process until the flag is turned off. This flag is turned off when a lava block gets a special update called, and checks if there is any relavent obsidian around. If not, it turns off the flag. \\
+Now, you may think that there is still a lot of lava that generates in the world, so thats still a problem. However, we can create a way to only tick "relevant lava". Specifically, lava that has any obsidian around. You place obsidian in the world, it triggers a boolean flag and updates the lava. When the lava is updates, and the flag is true, then it triggers counters and starts continuously scheduling a tile tick in the next tick, and repeats such a process until the flag is turned off. This flag is turned off when a lava block gets a special update called, and checks if there is any relevant obsidian around. If not, it turns off the flag. \\
 > Note that both of these would be custom updates (kind of like comparator updates) since it as custom region and functionality.
 
-Also, through this method, it is easy to exclude irrelavent lava generated in a ravine, since naturally generated obsidian wouldn't trigger such update.
+Also, through this method, it is easy to exclude irrelevant lava generated in a ravine, since naturally generated obsidian wouldn't trigger such update.
 
 ## Too Many Counters
 My solution to the fact that there are too many counters, is to move the counter to the obsidian. When an air block gets triggered, it searches downward for obsidian, and adds to that counter. This obsidian is also responsible to checking if it is the bottom of a full portal: if not then it rejects this increment to the counter; if so it also checks the sum of all counter for this same portal.
@@ -205,6 +205,7 @@ Fire spread is way harder to fix, since problem 3 is always glaring. However, th
 - As mentioned, further research in firespread stuff
 - Damage that fire does on players
 - Many tradebacks between performance and accuracy, only decidable after testing
+- The total counter threshold potentially should be liked to flint RNG.
 
 # Some solutions i don't like and why
 - Comming up with a formula of the amout of wood, leaves, and lava around the portal\
