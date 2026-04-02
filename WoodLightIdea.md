@@ -112,31 +112,31 @@ The key take away here is that the lava block randomly selects blocks, and check
                 BlockPos.Mutable mutable = new BlockPos.Mutable();
 
                 for (int l = -1; l <= 1; l++) {
-                for (int m = -1; m <= 1; m++) {
-                for (int n = -1; n <= 4; n++) {
-                if (l != 0 || n != 0 || m != 0) {
-                int o = 100;
-                if (n > 1) {
-                    o += (n - 1) * 100;
-                }
-
-                mutable.set(blockPos, l, n, m);
-                int p = this.getBurnChance(serverWorld, mutable);
-                if (p > 0) {
-                    int q = (p + 40 + serverWorld.getDifficulty().getId() * 7) / (i + 30);
-                    if (bl2) {
-                        q /= 2;
+                    for (int m = -1; m <= 1; m++) {
+                        for (int n = -1; n <= 4; n++) {
+                            if (l != 0 || n != 0 || m != 0) {
+                                int o = 100;
+                                if (n > 1) {
+                                    o += (n - 1) * 100;
+                                }
+                
+                                mutable.set(blockPos, l, n, m);
+                                int p = this.getBurnChance(serverWorld, mutable);
+                                if (p > 0) {
+                                    int q = (p + 40 + serverWorld.getDifficulty().getId() * 7) / (i + 30);
+                                    if (bl2) {
+                                        q /= 2;
+                                    }
+                
+                                    if (q > 0 && random.nextInt(o) <= q && (!serverWorld.isRaining() || !this.isRainingAround(serverWorld, mutable))) {
+                                        int r = Math.min(15, i + random.nextInt(5) / 4);
+                                        serverWorld.setBlockState(mutable, this.method_24855(serverWorld, mutable, r), 3);
+                                    }
+                                }
+                            }
+                        }
                     }
-
-                    if (q > 0 && random.nextInt(o) <= q && (!serverWorld.isRaining() || !this.isRainingAround(serverWorld, mutable))) {
-                        int r = Math.min(15, i + random.nextInt(5) / 4);
-                        serverWorld.setBlockState(mutable, this.method_24855(serverWorld, mutable, r), 3);
-                    }
                 }
-                }
-                }
-                }
-            }
             }
         }
     }
